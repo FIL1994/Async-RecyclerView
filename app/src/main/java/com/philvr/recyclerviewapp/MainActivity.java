@@ -40,6 +40,6 @@ public class MainActivity extends AppCompatActivity{
     private void prepareMovieData(){
         CreateMoviesAsync createMoviesAsync = new CreateMoviesAsync(movieList, moviesAdapter,
                 recyclerView);
-        createMoviesAsync.execute(800);
+        createMoviesAsync.execute(300);
     }
 }

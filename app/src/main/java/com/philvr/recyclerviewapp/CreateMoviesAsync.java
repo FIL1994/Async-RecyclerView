@@ -15,7 +15,7 @@ import java.util.List;
 
                                                 //input type, progress type, return type
 public class CreateMoviesAsync extends AsyncTask<Integer, Integer, ArrayList<Movie>> {
-    private ArrayList<Movie> movies;
+    private static ArrayList<Movie> movies;
     private MoviesAdapter moviesAdapter;
     private RecyclerView recyclerView;
     private int updateFrequency = 5;
@@ -39,6 +39,8 @@ public class CreateMoviesAsync extends AsyncTask<Integer, Integer, ArrayList<Mov
             movies.add(movie);
             int progress = (int) Math.floor(((double) i/ (double) moviesToGenerate) * 100.0);
             publishProgress(progress);
+            //simulate method taking awhile to complete
+            SystemClock.sleep(120);
         }
 
         return movies;
@@ -55,20 +57,17 @@ public class CreateMoviesAsync extends AsyncTask<Integer, Integer, ArrayList<Mov
     protected void onProgressUpdate(Integer... values){
         super.onProgressUpdate(values);
 
-        if(values[0] % 5 == 0){
+        if(values[0] % updateFrequency == 0){
             if(!hasNotified) {
                 moviesAdapter.notifyDataSetChanged();
-                System.out.println("NOTIFY");
+                movies.trimToSize();
+                Log.i("MoviesProgress", Integer.toString(values[0]) + "% completed");
                 hasNotified = true;
-                SystemClock.sleep(500);
             }
         }
         else{
             hasNotified = false;
         }
-
-        //Log.i("MoviesProgress", Integer.toString(values[0]) + "% completed");
-        //update progress of task
     }
 
     @Override
