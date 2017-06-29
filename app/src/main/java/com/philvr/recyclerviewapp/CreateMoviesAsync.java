@@ -15,7 +15,7 @@ import java.util.List;
 
                                                 //input type, progress type, return type
 public class CreateMoviesAsync extends AsyncTask<Integer, Integer, ArrayList<Movie>> {
-    private static ArrayList<Movie> movies;
+    private ArrayList<Movie> movies;
     private MoviesAdapter moviesAdapter;
     private RecyclerView recyclerView;
     private int updateFrequency = 5;
